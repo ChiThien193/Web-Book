@@ -1,4 +1,9 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
-
-export default nextConfig;
+const nextConfig = {
+    images: {
+      domains: ['example.com'], // Thêm các hostname mà bạn muốn sử dụng cho hình ảnh
+    },
+  };
+  
+  export default nextConfig;
+  
