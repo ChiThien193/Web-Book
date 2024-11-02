@@ -1,7 +1,14 @@
+import RegisterFrom from '@/app/(group login register)/register/register-form'
 import React from 'react'
 
-export default function Register() {
-  return (
-    <div>Register</div>
-  )
+
+const Register = () => {
+return (
+  <div>
+    <h1>Đăng kí</h1>
+    <RegisterFrom />
+  </div>
+)
 }
+
+export default Register
