@@ -1,6 +1,5 @@
 "use client"
 
-
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { Button } from "@/components/ui/button"
@@ -14,8 +13,10 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { RegisterBody, RegisterBodyType } from '@/schemaValidations/auth.schema'
+import envConfig from "@/config"
 
 const RegisterFrom = () => {
+  console.log(process.env.NEXT_PUBLIC_API_ENDPOINT)
   const form = useForm<RegisterBodyType>({
     resolver: zodResolver(RegisterBody),
     defaultValues: {
@@ -26,9 +27,18 @@ const RegisterFrom = () => {
     },
   })
  
-  function onSubmit(values: RegisterBodyType) {
-
-    console.log(values)
+  async function onSubmit(values: RegisterBodyType) {
+    const result = await  fetch(
+      `${envConfig.NEXT_PUBLIC_API_ENDPOINT}/auth/register`, 
+      {
+        body: JSON.stringify(values),
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        method: 'POST'
+      }
+    ).then(res => res.json())
+    console.log(result)
   }
   return (
     <Form {...form}>
@@ -83,7 +93,7 @@ const RegisterFrom = () => {
             <FormItem>
               <FormLabel>Re-enter password</FormLabel>
               <FormControl>
-                <Input placeholder="Re-enter password" {...field} />
+                <Input placeholder="Re-enter password" type = 'confirmPassword' {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
