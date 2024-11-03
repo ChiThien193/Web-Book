@@ -12,24 +12,22 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import { RegisterBody, RegisterBodyType } from '@/schemaValidations/auth.schema'
+import { LoginBody, LoginBodyType,  } from '@/schemaValidations/auth.schema'
 import envConfig from "@/config"
 
-const RegisterFrom = () => {
+const LoginrFrom = () => {
   console.log(process.env.NEXT_PUBLIC_API_ENDPOINT)
-  const form = useForm<RegisterBodyType>({
-    resolver: zodResolver(RegisterBody),
+  const form = useForm<LoginBodyType>({
+    resolver: zodResolver(LoginBody),
     defaultValues: {
-        name: "",
         email: "",
         password: "",
-        confirmPassword: ""
     },
   })
  
-  async function onSubmit(values: RegisterBodyType) {
+  async function onSubmit(values: LoginBodyType) {
     const result = await  fetch(
-      `${envConfig.NEXT_PUBLIC_API_ENDPOINT}/auth/register`, 
+      `${envConfig.NEXT_PUBLIC_API_ENDPOINT}/auth/login`, 
       {
         body: JSON.stringify(values),
         headers: {
@@ -47,19 +45,6 @@ const RegisterFrom = () => {
       className='space-y-2 max-w-[600px] flex-shrink-0 w-full'
       noValidate
       >
-        <FormField
-          control={form.control}
-          name="name"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Name</FormLabel>
-              <FormControl>
-                <Input placeholder="Enter name" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
         <FormField
           control={form.control}
           name="email"
@@ -86,25 +71,12 @@ const RegisterFrom = () => {
             </FormItem>
           )}
         />
-        <FormField
-          control={form.control}
-          name="confirmPassword"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Re-enter password</FormLabel>
-              <FormControl>
-                <Input placeholder="Re-enter password" type = 'password' {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
         <Button type="submit" className="!mt-9 w-full">
-            SIGN UP
+            LOGIN
             </Button>
       </form>
     </Form>
   )
 }
 
-export default RegisterFrom
+export default LoginrFrom
