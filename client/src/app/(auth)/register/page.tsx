@@ -1,6 +1,6 @@
 'use client'
 
-import RegisterFrom from '@/app/(group login register)/register/register-form'
+import RegisterFrom from '@/app/(auth)/register/register-form'
 import React from 'react'
 
 
