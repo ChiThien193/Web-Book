@@ -34,24 +34,64 @@
   cursor: pointer;
 }
 
-.book-list, .Items-list {
+.book-list {
   display: grid;
-  grid-template-columns: repeat(5, 1fr); /* Hiển thị 5 sản phẩm trên 1 hàng */
-  gap: 20px;
+  grid-template-columns: repeat(4, 1fr); /* Hiển thị 4 sản phẩm trên 1 hàng */
+  gap: 20px; /* Khoảng cách giữa các sản phẩm */
+  margin-bottom: 20px;
 }
 
-.book-item, .Item {
+.book-item {
   text-align: center;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9; /* Màu nền nhẹ cho sản phẩm */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.book-item img, .Item img {
-  width: 180px;
-  height: 250px;
+.book-item:hover {
+  transform: scale(1.05); /* Phóng to nhẹ khi hover */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Đổ bóng khi hover */
+}
+
+.book-item img {
+  width: 100%; /* Chiếm toàn bộ chiều rộng của mục */
+  max-width: 150px; /* Giới hạn chiều rộng tối đa */
+  height: 200px;
   object-fit: cover;
+  margin: 0 auto 10px; /* Căn giữa và thêm khoảng cách phía dưới */
 }
 
-.book-item p, .Item p {
+.book-item h3 {
+  font-size: 16px;
+  color: #333;
+  margin: 10px 0 5px;
+}
+
+.book-item p {
   color: #ff6b6b;
+  font-weight: bold;
+  margin: 0;
+}
+
+/* Responsive cho màn hình nhỏ hơn */
+@media screen and (max-width: 768px) {
+  .book-list {
+    grid-template-columns: repeat(2, 1fr); /* 2 sản phẩm mỗi hàng trên màn hình nhỏ */
+    gap: 15px;
+  }
+
+  .book-item img {
+    max-width: 120px; /* Thu nhỏ hình ảnh trên màn hình nhỏ */
+    height: 160px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .book-list {
+    grid-template-columns: 1fr; /* 1 sản phẩm mỗi hàng trên màn hình rất nhỏ */
+  }
 }
 
 

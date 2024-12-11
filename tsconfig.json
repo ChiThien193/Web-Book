@@ -1,5 +1,7 @@
 {
   "compilerOptions": {
+    "target": "es6", // hoặc "es2015", "es2016", "es2017", hoặc "esnext"
+    "lib": ["es6", "dom"], // Bao gồm thư viện ES6
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,

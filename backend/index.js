@@ -1,28 +1,35 @@
-import express from 'express';
-import mongoose from 'mongoose';
-import cors from 'cors';
+import express from "express";
+import mongoose from "mongoose";
+import cors from "cors";
+
+import orderRoutes from "./orderRoutes.js"; // Import routes đơn hàng
 import productRoutes from './productRoutes.js'; // Import các route sản phẩm
+
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
 // Kết nối tới MongoDB cục bộ (localhost)
-const mongoURI = 'mongodb://localhost:27017/books_database'; // Thay 'books_database' bằng tên DB của bạn
+mongoose.connect("mongodb://localhost:27017/books_database", {
+})
+  .then(() => {
+    console.log("Kết nối MongoDB thành công");
+  })
+  .catch((error) => {
+    console.error("Không thể kết nối MongoDB:", error.message);
+  });
 
-// Kết nối đến MongoDB
-mongoose
-  .connect(mongoURI)
-  .then(() => console.log('Connected to MongoDB on localhost'))
-  .catch((err) => console.error('MongoDB connection error:', err));
-
-// Route mẫu
-app.get('/', (req, res) => {
-  res.send('API is running...');
+// Route kiểm tra
+app.get("/", (req, res) => {
+  res.send("Server is running on http://localhost:5000");
 });
 
-// Sử dụng các route sản phẩm
-app.use('/api/products', productRoutes); // Chú ý: sử dụng chữ thường cho "products"
+// Sử dụng các route sản phẩm lên trang chủ
+app.use('/api', productRoutes);
 
-const PORT = process.env.PORT || 5000; // Sử dụng PORT từ biến môi trường nếu có
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+// Sử dụng các route đơn hàng lên orders (lưu thông tin người mua lên data mongodb)
+app.use("/api", orderRoutes);
+
+const PORT = process.env.PORT || 5000; 
+app.listen(PORT, () => console.log(`Server is running on http://localhost:${PORT}`));
